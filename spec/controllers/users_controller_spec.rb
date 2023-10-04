@@ -47,14 +47,18 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when params are correct' do
-      let(:params) { { user: { name: "Abhishek kanojia" } } }
+      let(:params) { { user: { name: "test" ,surname: "demo"} } }
 
       it 'is expected to create new user successfully' do
         expect(assigns[:user]).to be_instance_of(User)
       end
 
       it 'is expected to have name assigned to it' do
-        expect(assigns[:user].name).to eq('Abhishek kanojia')
+        expect(assigns[:user].name).to eq('test')
+      end
+
+      it 'is expected to have surname assigned to it' do
+        expect(assigns[:user].surname).to eq('demo')
       end
 
       it 'is expected to redirect to users path' do
@@ -71,7 +75,6 @@ RSpec.describe UsersController, type: :controller do
       it 'is expected to render new template' do
         is_expected.to render_template(:new)
       end
-
       
       it 'is expected to add errors to name attribute' do
         expect(assigns[:user].errors[:name]).to eq(['can\'t be blank'])
@@ -99,6 +102,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when user id is invalid' do
+      
       let(:params) { { id: Faker::Number.number } }
 
       it 'is expected to redirect_to users path' do
@@ -133,6 +137,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when user exist in database' do
+      
       let(:user) { FactoryBot.create :user }
       let(:params) { { id: user.id, user: { name: 'test name' } } }
 
@@ -151,6 +156,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       context 'when data is invalid' do
+        
         let(:user) { FactoryBot.create :user }
         let(:params) { { id: user.id, user: { name: '' } } }
 
