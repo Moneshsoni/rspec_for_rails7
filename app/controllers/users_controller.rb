@@ -29,6 +29,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def unauthorized
+    # Your logic for handling 401 errors goes here
+    # You can render a custom error page, display a message, or redirect as needed
+    render plain: "Unauthorized Access", status: 401
+  end
+
   private def user_params
     params.require(:user).permit(:name, :surname)
   end
