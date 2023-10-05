@@ -180,7 +180,11 @@ RSpec.describe UsersController, type: :controller do
           expect(response.body).to eq("Unauthorized Access")
         end
       end
- 
+      
+      it "Check the redirect" do
+        path =  users_path
+        expect(response).to redirect_to(path)
+      end
 
     end
   end
