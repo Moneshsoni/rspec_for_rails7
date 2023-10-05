@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   
 
   match "/401", to: "users#unauthorized", via: :all, as: :unauthorized
+  match "/login" => "sessions#new", :as => "login", :via => "get"
 end

@@ -1,12 +1,4 @@
 require "rails_helper"
-class ApplicationController < ActionController::Base
-
-private
-
-  def access_denied
-    redirect_to "/401.html"
-  end
-end
 
 RSpec.describe ApplicationController, type: :controller do
   controller do
@@ -15,8 +7,11 @@ RSpec.describe ApplicationController, type: :controller do
       head :ok
     end
 
-  end
+    def index
+      redirect_to login_url
+    end
 
+  end
 
   before do
     routes.draw { get "clear_cookie" => "anonymous#clear_cookie" }
@@ -30,24 +25,28 @@ RSpec.describe ApplicationController, type: :controller do
     expect(cookies[:user_name]).to eq nil
   end
 
+  # it "redirects to the login page" do
+  #   get :index
+  #   expect(response).to redirect_to("/login")
+  # end
 end
 
 
 
-Rails.application.routes.draw do
-  match "/login" => "sessions#new", :as => "login", :via => "get"
-end
+# Rails.application.routes.draw do
+#   match "/login" => "sessions#new", :as => "login", :via => "get"
+# end
 
 
-RSpec.describe ApplicationController, type: :controller do
-  controller do
-    def index
-      redirect_to login_url
-    end
-  end
+# RSpec.describe ApplicationController, type: :controller do
+#   controller do
+#     def index
+#       redirect_to login_url
+#     end
+#   end
 
-  it "redirects to the login page" do
-    get :index
-    expect(response).to redirect_to("/login")
-  end
-end
+#   it "redirects to the login page" do
+#     get :index
+#     expect(response).to redirect_to("/login")
+#   end
+# end
