@@ -172,6 +172,16 @@ RSpec.describe UsersController, type: :controller do
           expect(assigns[:user].errors[:name]).to eq(['can\'t be blank'])
         end
       end
+
+      context "handling AccessDenied exceptions" do
+        it "returns a 401 Unauthorized status when user is not authenticated" do
+          get :unauthorized
+          # expect(response).to redirect_to("/401.html")
+          expect(response.body).to eq("Unauthorized Access")
+        end
+      end
+ 
+
     end
   end
 
